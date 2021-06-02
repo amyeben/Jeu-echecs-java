@@ -4,18 +4,18 @@
 import java.math.*;
 public class Fou extends Piece
 {
-	private String forme;
+	private String propriete;
 
 	public Fou()
 	{
 		super();
 		if(this.getCouleur() == 0)
 		{
-			this.forme = "\u265D";					// si la pièce est noire
+			this.propriete = "\u265D";					// si la pièce est noire
 		}
 		else
 		{
-			this.forme = "\u2657";					// si la pièce est blanche
+			this.propriete = "\u2657";					// si la pièce est blanche
 		}
 	}
 
@@ -24,22 +24,17 @@ public class Fou extends Piece
 		super(ligne,colonne,coul);
 		if(this.getCouleur() == 0)
 		{
-			this.forme = "\u265D";					// si la pièce est noire
+			this.propriete = "\u265D";					// si la pièce est noire
 		}
 		else
 		{
-			this.forme = "\u2657";					// si la pièce est blanche
+			this.propriete = "\u2657";					// si la pièce est blanche
 		}
 	}
 
-	public String getForme()
+	public String getpropriete()
 	{
-		return this.forme;
-	}
-
-	public String toString()
-	{
-		return super.toString() + " et la piece a la forme " + this.forme;
+		return this.propriete;
 	}
 
 
@@ -187,5 +182,9 @@ public class Fou extends Piece
 		}
 		return p;
 	}
-
-}
+	
+	public String toString()
+	{
+		return super.toString() + " et la piece a les propriétes suivantes " + this.propriete;
+	}
+} // Fin de la class Fou
