@@ -38,59 +38,59 @@ public class Fou extends Piece
 	}
 
 
-	public void deplacerPiece()
+	public void deplacer()
 	{
 	}
 
 	//Si la piece est un fou
 	//Si il n'y a personne dur ma diagonale et si la case désigné et une caseVide : True
 
-	public boolean verifDeplacement(Echiquier e, Case arrive)
+	public boolean coupPossible(Echiquier e, Case arrive)
 	{
-		int i = arrive.getPosX();
-		int j = arrive.getPosY();
+		int i = arrive.getPosLigne();
+		int j = arrive.getPosColonne();
 		boolean p = false;
-		int departX = this.getPosX();	// position x de la piece
-		int departY = this.getPosY();	// position y de la piece
-		int dest = i - departX;
-		int fin = j - departY;
+		int departLigne = this.getPosLigne();	// position x de la piece
+		int departColonne = this.getPosColonne();	// position y de la piece
+		int dest = i - departLigne;
+		int fin = j - departColonne;
 		dest = Math.abs(dest);
 		fin = Math.abs(fin);
 		if (e.etatCase(e.getCase(i,j)) == false && e.getCase(i,j).getPiece().getCouleur() == this.getCouleur() || dest != fin)
 		{
 			return p;
 		}
-		else if (departX > i && departY < j)
+		else if (departLigne > i && departColonne < j)
 		{
-			return this.verifDeplacementDhd(e,i,j,departX,departY);
+			return this.coupPossibleDhd(e,i,j,departLigne,departColonne);
 		}
-		else if (departX > i && departY > j)
+		else if (departLigne > i && departColonne > j)
 		{
-			return this.verifDeplacementDhg(e,i,j,departX,departY);
+			return this.coupPossibleDhg(e,i,j,departLigne,departColonne);
 		}
-		else if (departX < i && departY < j)
+		else if (departLigne < i && departColonne < j)
 		{
-			return this.verifDeplacementGbd(e,i,j,departX,departY);
+			return this.coupPossibleGbd(e,i,j,departLigne,departColonne);
 		}
-		else if (departX < i && departY > j)
+		else if (departLigne < i && departColonne > j)
 		{
-				return this.verifDeplacementGbg(e,i,j,departX,departY);
+				return this.coupPossibletGbg(e,i,j,departLigne,departColonne);
 		}
 		return p;
 	}
 	// verifiez deplacement Diagonale haut droit
-	public boolean verifDeplacementDhd(Echiquier e, int i, int j, int departX, int departY)
+	public boolean coupPossibleDhd(Echiquier e, int i, int j, int departLigne, int departColonne)
 	{
 		boolean p = false;
-		departX = departX - 1;
-		departY = departY + 1;
-		if (departX == i && departY == j) {
+		departLigne = departLigne - 1;
+		departColonne = departColonne + 1;
+		if (departLigne == i && departColonne == j) {
 			return true;
 		}
-		while (departX > i || departY < j)
+		while (departLigne > i || departColonne < j)
 		{
 			// si case libre
-			if (e.etatCase(e.getCase(departX,departY)))
+			if (e.etatCase(e.getCase(departLigne,departColonne)))
 			{
 				p = true;
 			}
@@ -99,86 +99,86 @@ public class Fou extends Piece
 			{
 				return false;
 			}
-			departX = departX - 1;
-			departY = departY + 1;
+			departLigne = departLigne - 1;
+			departColonne = departColonne + 1;
 		}
 		return p;
 	}
 	// verifier deplacement Diagonale haut gauche
-	public boolean verifDeplacementDhg(Echiquier e, int i, int j, int departX, int departY)
+	public boolean coupPossibleDhg(Echiquier e, int i, int j, int departLigne, int departColonne)
 	{
 		boolean p = false;
-		departX = departX - 1;
-		departY = departY - 1;
-		if (departX == i && departY == j) {
+		departLigne = departLigne - 1;
+		departColonne = departColonne - 1;
+		if (departColonne == i && departColonne == j) {
 			return true;
 		}
-		while(departX > i || departY > j)
+		while(departLigne > i || departColonne > j)
 		{
 			// si case libre
-			if (e.etatCase(e.getCase(departX,departY)))
+			if (e.etatCase(e.getCase(departLigne,departColonne)))
 			{
 				p = true;
 			}
 			// si la case contient une piece
-			else if (e.etatCase(e.getCase(departX,departY)) == false)
+			else if (e.etatCase(e.getCase(departLigne,departColonne)) == false)
 			{
 				return false;
 			}
-			departX = departX - 1;
-			departY = departY - 1;
+			departLigne = departLigne - 1;
+			departColonne = departColonne - 1;
 		}
 		return p;
 	}
 	// verifier deplacement Diagonale bas droit
-	public boolean verifDeplacementGbd(Echiquier e, int i, int j, int departX, int departY)
+	public boolean coupPossibleGbd(Echiquier e, int i, int j, int departLigne, int departColonne)
 	{
 		boolean p = false;
-		departX = departX + 1;
-		departY = departY + 1;
-		if (departX == i && departY == j) {
+		departLigne = departLigne + 1;
+		departColonne = departColonne + 1;
+		if (departLigne == i && departColonne == j) {
 			return true;
 		}
-		while(departX < i || departY < j)
+		while(departLigne < i || departColonne < j)
 		{
 			// si case libre
-			if (e.etatCase(e.getCase(departX,departY)))
+			if (e.etatCase(e.getCase(departLigne,departColonne)))
 			{
 				p = true;
 			}
 			// si la case contient une piece
-			else if (e.etatCase(e.getCase(departX,departY)) == false)
+			else if (e.etatCase(e.getCase(departLigne,departColonne)) == false)
 			{
 				return false;
 			}
-			departX = departX + 1;
-			departY = departY + 1;
+			departLigne = departLigne + 1;
+			departColonne = departColonne + 1;
 		}
 		return p;
 	}
 	// verifier deplacement Diagonale bas gauche
-	public boolean verifDeplacementGbg(Echiquier e, int i, int j, int departX, int departY)
+	public boolean coupPossibleGbg(Echiquier e, int i, int j, int departLigne, int departColonne)
 	{
 		boolean p = false;
-		departX = departX + 1;
-		departY = departY - 1;
-		if (departX == i && departY == j) {
+		departLigne = departLigne + 1;
+		departColonne = departColonne - 1;
+		if (departLigne == i && departColonne == j) {
 			return true;
 		}
-		while(departX < i || departY > j)
+		while(departLigne < i || departColonne > j)
 		{
 			// si case libre
-			if (e.etatCase(e.getCase(departX,departY)))
+			if (e.etatCase(e.getCase(departLigne,departColonne)))
 			{
 				p = true;
 			}
 			// si la case contient une piece
-			else if (e.etatCase(e.getCase(departX,departY)) == false)
+			else if (e.etatCase(e.getCase(departLigne,departColonne)) == false)
 			{
 				return false;
 			}
-			departX = departX + 1;
-			departY = departY - 1;
+			departLigne = departLigne + 1;
+			departColonne = departColonne - 1;
 		}
 		return p;
 	}
