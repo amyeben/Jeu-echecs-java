@@ -37,19 +37,19 @@ public class Cavalier  extends Piece
 		return this.propriete;
 	}
 
-	public void deplacerPiece()
+	public void deplacer()
 	{
 	}
 
 
-	public boolean verifDeplacement(Echiquier e, Case arrive)
+	public boolean coupPossible(Echiquier e, Case arrive)
 	{
-		int departX = this.getPosX();
-		int departY = this.getPosY();
-		int i = arrive.getPosX();
-		int j = arrive.getPosY();
+		int departLigne = this.getPosLigne();
+		int departColonne = this.getPosColonne();
+		int i = arrive.getPosLigne();
+		int j = arrive.getPosColonne();
 
-		if( Math.abs(departX - i) == 2 && Math.abs(departY - j) == 1 || Math.abs(departX - i) == 1 && Math.abs(departY - j) ==2 )
+		if( Math.abs(departLigne - i) == 2 && Math.abs(departColonne - j) == 1 || Math.abs(departLigne - i) == 1 && Math.abs(departColonne - j) ==2 )
 		{
 			return true;
 		}
