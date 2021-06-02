@@ -4,18 +4,18 @@
 
 public class Pion  extends Piece
 {
-	private String forme;
+	private String propriete;
 
 	public Pion()
 	{
 		super();
 		if(this.getCouleur() == 0)
 		{
-			this.forme = "\u265F";					// si la pièce est noire
+			this.propriete = "\u265F";					// si la pièce est noire
 		}
 		else
 		{
-			this.forme = "\u2659";					// si la pièce est blanche
+			this.propriete = "\u2659";					// si la pièce est blanche
 		}
 	}
 
@@ -24,16 +24,16 @@ public class Pion  extends Piece
 		super(ligne,colonne,coul);
 		if(this.getCouleur() == 0)
 		{
-			this.forme = "\u265F";					// si la pièce est noire
+			this.propriete = "\u265F";					// si la pièce est noire
 		}
 		else
 		{
-			this.forme = "\u2659";					// si la pièce est blanche
+			this.propriete = "\u2659";					// si la pièce est blanche
 		}
 	}
 
-	public String getForme() {
-		return this.forme;
+	public String getPropriete() {
+		return this.propriete;
 	}
 
 	/*
@@ -45,9 +45,9 @@ public class Pion  extends Piece
 	 * 	ARRIVE devant DEPART
 	 */
 
-	public boolean verifDeplacement (Echiquier e, Case arrive)
+	public boolean coupPossible (Echiquier e, Case arrive)
 	{
-		Case depart=e.getCase(this.getPosX(), this.getPosY());
+		Case depart=e.getCase(this.getPosLigne(), this.getPosColonne());
 		if(e.etatCase(arrive))
 		{
 			if(this.positionInitialePion())
@@ -62,15 +62,15 @@ public class Pion  extends Piece
 					*/
 				System.out.println("test 2");
 				if(depart.getPiece().getCouleur() == 0){
-					if(arrive.equals(e.getCase(depart.getPosX()+2, depart.getPosY()))
-							&& e.getCase(depart.getPosX()+1, depart.getPosY()).estVide())
+					if(arrive.equals(e.getCase(depart.getPosLigne()+2, depart.getPosColonne()))
+							&& e.getCase(depart.getPosLigne()+1, depart.getPosColonne()).estVide())
 						//System.out.println("case vide devant + ok");
 						return true;
 				}
-				else{
+				else {
 					System.out.println("test 3");
-					if(arrive.equals(e.getCase(depart.getPosX()-2, depart.getPosY()))
-							&& e.getCase(depart.getPosX()-1, depart.getPosY()).estVide())
+					if(arrive.equals(e.getCase(depart.getPosLigne()-2, depart.getPosColonne()))
+							&& e.getCase(depart.getPosLigne()-1, depart.getPosColonne()).estVide())
 						System.out.println("case vide devant + ok");
 
 						return true;}
@@ -82,7 +82,7 @@ public class Pion  extends Piece
 					//System.out.println("devant ok");
 					return true;
 
-				if(arrive.getPosX()>depart.getPosX()+1 || arrive.getPosX()>depart.getPosX()-1)
+				if(arrive.getPosLigne()>depart.getPosLigne()+1 || arrive.getPosLigne()>depart.getPosLigne()-1)
 					return false;
 			}
 		}
@@ -100,15 +100,17 @@ public class Pion  extends Piece
 		{
 			for (int j = 0; j < 8 ; j++)
 			{
-					if(this.getPosX() == 1 && this.getPosY() == j)
+					if(this.getPosLigne() == 1 && this.getPosColonne() == j)
 						return true;
 			}
 
-		}else
+		} 
+		
+		else
 		{
 			for (int j = 0; j < 8 ; j++)
 			{
-				if(this.getPosX() == 6 && this.getPosY() == j)
+				if(this.getPosLigne() == 6 && this.getPosColonne() == j)
 					return true;
 			}
 
@@ -117,7 +119,7 @@ public class Pion  extends Piece
 	}
 	public String toString()
 	{
-		return super.toString() + " et la piece a la forme " + this.forme;
+		return super.toString() + " et la piece a les propriétes suivantes: " + this.propriete;
 	}
 
 }
