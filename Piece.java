@@ -1,8 +1,8 @@
 public abstract class Piece
 {
   private int couleur;	// 0 pour noir, 1 pour blanc
-  private int x;	// position x
-  private int y;	// position y
+  private int ligne;	// position x
+  private int colonne;	// position y
 
     // Constructeur avec paramètres
   public Piece(){
@@ -10,12 +10,12 @@ public abstract class Piece
 
   public Piece(int x, int y, int couleur)
   {
-    this.x = x;
-    this.y = y;
+    this.ligne = x;
+    this.colonne = y;
     this.couleur = couleur;
   }
 
-    public boolean deplacerPieces(Echiquier e,Case arrive){
+    public boolean deplacer(Echiquier e,Case arrive){
     Case depart = e.getCase(this.x, this.y);
     System.out.println(depart.getPosX() + " et : " + depart.getPosY());
     System.out.println(arrive.getPosX() + " et : " + arrive.getPosY());
@@ -39,21 +39,21 @@ public abstract class Piece
   }
 
 
-  public boolean verifDeplacement(Echiquier e, Case arrive)
+  public boolean coupPossible(Echiquier e, Case arrive)
   {
     return true;
   }
 
 
     /* GETTERS */
-    public int getPosX()
+    public int getPosLigne()
     {
-      return this.x;
+      return this.ligne;
     }
 
-  public int getPosY()
+  public int getPosColonne()
     {
-      return this.y;
+      return this.colonne;
     }
 
     public int getCouleur()
@@ -61,25 +61,25 @@ public abstract class Piece
       return this.couleur;
     }
 
-    public String getForme() {
+    public String getPropriete() {
       return "";
     }
 
   /*___________________FIN DES GETTERS	*/
 
     /* SETTERS */
-  public void setPosXetY(int x, int y) {
-    this.setPosX(x);
-    this.setPosY(y);
+  public void setPosLigneEtColonne(int x, int y) {
+    this.setPosLigne(x);
+    this.setPosColonne(y);
   }
-    public void setPosX(int x)
+    public void setPosLigne(int x)
     {
-      this.x = x;
+      this.ligne = x;
     }
 
-    public void setPosY(int y)
+    public void setPosColonne(int y)
     {
-      this.y = y;
+      this.colonne = y;
     }
 
     public void setCouleur(int c)
@@ -94,11 +94,11 @@ public abstract class Piece
        System.out.println("test 1");
        if (this.verifDeplacement(e,arrive))
        {
-          int x = this.getPosX();
-          int y = this.getPosY();
-          int i = arrive.getPosX();
-          int j = arrive.getPosY();
-          System.out.println("x " + x + " y " + y);
+          int x = this.getPosLigne();
+          int y = this.getPosColonne();
+          int i = arrive.getPosLigne();
+          int j = arrive.getPosColonne();
+          System.out.println("Ligne " + x + " Colonne " + y);
           System.out.println("i " + i + " j " + j);
           e.setCase(e.getCase(i,j),e.getCase(x,y).getPiece());
           System.out.println(e.getCase(i,j));
@@ -117,6 +117,6 @@ public abstract class Piece
       else
         s = "blanc";
 
-        return "Piece [" + this.x+";"  + this.y+ "]" + "couleur : " + s;
+        return "Piece [" + this.ligne+";"  + this.colonne+ "]" + "couleur : " + s;
     }
 }
