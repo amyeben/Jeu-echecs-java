@@ -1,19 +1,19 @@
 public class Case
 {
-    private int x; // position x
-    private int y; // position y
+    private int ligne; // position x
+    private int colonne; // position y
     private Piece p; // case peut etre compose de piece
 
-  public Case(int x, int y)
+  public Case(int ligne, int colonne)
   {
-    this.x = x;
-    this.y = y;
+    this.ligne = ligne;
+    this.colonne = colonne;
   }
 
-  public Case(int x, int y, Piece p)
+  public Case(int ligne, int colonne, Piece p)
       {
-          this.x = x;
-          this.y = y;
+          this.ligne = ligne;
+          this.colonne = colonne;
         this.p = p;  // sinon par exemple je fais des if(p instanceof cavalier)
       }
 
@@ -38,7 +38,7 @@ public class Case
    */
     public boolean memeColonne(Case arrive)
   {
-    if(this.getPosY() == arrive.getPosY())
+    if(this.getPosLigne() == arrive.getPosColonne())
       return true;
     return false;
         
@@ -48,7 +48,7 @@ public class Case
      */
     public boolean memeLigne(Case arrive)
     {
-      if(this.getPosX()== arrive.getPosX())
+      if(this.getPosLigne()== arrive.getPosColonne())
         return true;
       return false;
           
@@ -60,20 +60,20 @@ public class Case
     if(this.getPiece().getCouleur() != arrive.getPiece().getCouleur())
     {
       if(this.getPiece().getCouleur()==0)//noir
-        if(arrive.getPosX()==this.getPosX()+1)
+        if(arrive.getPosLigne()==this.getPosLigne()+1)
         {
-          if(arrive.getPosY()==this.getPosY()-1)
+          if(arrive.getPosColonne()==this.getPosColonne()-1)
             return true;
-          else if (arrive.getPosY()==this.getPosY()+1)
+          else if (arrive.getPosLigne()==this.getPosColonne()+1)
             return true;
         }
       else 
       
-        if(arrive.getPosX()==this.getPosX()-1)
+        if(arrive.getPosLigne()==this.getPosLigne()-1)
         {
-          if(arrive.getPosY()==this.getPosY()-1)
+          if(arrive.getPosColonne()==this.getPosColonne()-1)
             return true;
-          else if (arrive.getPosY()==this.getPosY()+1)
+          else if (arrive.getPosColonne()==this.getPosColonne()+1)
             return true;
         }
     }
@@ -87,10 +87,10 @@ public class Case
      */
     public boolean caseDevant(Case arrive) {
       if(this.getPiece().getCouleur() == 0)//noir
-        if(this.memeColonne(arrive) && this.getPosX()+1 == arrive.getPosX())
+        if(this.memeColonne(arrive) && this.getPosLigne()+1 == arrive.getPosLigne())
           return true;
       else if (this.getPiece().getCouleur() == 1)
-        if(this.memeColonne(arrive) && this.getPosX()-1 == arrive.getPosX())
+        if(this.memeColonne(arrive) && this.getPosLigne()-1 == arrive.getPosLigne())
           return true;
       
       return false;
@@ -99,34 +99,34 @@ public class Case
 
     /* ACCESSEUR*/
 
-    public String getForme()
+    public String getPropriete()
     {
-      return this.p.getForme();
+      return this.p.getPropriete();
     }
     public Piece getPiece()
       {
     return this.p;
       }
 
-    public int getPosX()
+    public int getPosLigne()
     {
-      return this.x;
+      return this.ligne;
   }
 
-  public int getPosY()
+  public int getPosColonne()
   {
-      return this.y;
+      return this.colonne;
     }
 
 
-    public void setPosX(int x)
+    public void setPosLigne(int ligne)
     {
-          this.x = x;
+          this.ligne = ligne;
     }
 
-    public void setPosY(int y)
+    public void setPosColonne(int colonne)
     {
-        this.y = y;
+        this.colonne = colonne;
     }
 
     public void setPiece(Piece piece)
@@ -137,7 +137,7 @@ public class Case
 
   public String toString()
   {
-    return "Case["+this.x + ","+this.y+ "]"+ this.p;
+    return "Case["+this.ligne + ","+this.colonne+ "]"+ this.p;
   }
 
 
