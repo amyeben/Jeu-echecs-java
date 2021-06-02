@@ -27,8 +27,8 @@ public class Reine extends Piece
 		return this.propriete;
 	}
 
-	public boolean  verifDeplacement(Echiquier e,Case arrive) {
-		Case depart = e.getCase(this.getPosX(), this.getPosY());
+	public boolean coupPossible (Echiquier e,Case arrive) {
+		Case depart = e.getCase(this.getPosLigne(), this.getPosColonne());
 		
 		if(depart.memeColonne(arrive)) 
 			if(this.boucleColonne(e, depart, arrive))
@@ -48,12 +48,12 @@ public class Reine extends Piece
 	
 public boolean boucleDiagonale(Echiquier e,Case depart, Case arrive)
 	{
-				int i = arrive.getPosX();
-			int j = arrive.getPosY();
-			if(depart.getPosX()>i && depart.getPosY()<j)  //en haut a droite
+				int i = arrive.getPosLigne();
+			int j = arrive.getPosColonne();
+			if(depart.getPosLigne()>i && depart.getPosColonne()<j)  //en haut a droite
 			{
-				int x = depart.getPosX() - 1;
-				int y = depart.getPosY() + 1;
+				int x = depart.getPosLigne() - 1;
+				int y = depart.getPosColonne() + 1;
 				
 				if(!(e.getCase(x, y).estVide())) 
 					return false;
@@ -66,9 +66,9 @@ public boolean boucleDiagonale(Echiquier e,Case depart, Case arrive)
 					y = y + 1;
 				}
 			}
-			else if(depart.getPosX()>i && depart.getPosY()>j) {//en haut a gauceh
-				int x = depart.getPosX() - 1;
-				int y = depart.getPosY() - 1;
+			else if(depart.getPosLigne()>i && depart.getPosColonne()>j) {//en haut a gauceh
+				int x = depart.getPosLigne() - 1;
+				int y = depart.getPosColonne() - 1;
 				if(!(e.getCase(x, y).estVide())) 
 					return false;
 				
@@ -96,9 +96,9 @@ public boolean boucleDiagonale(Echiquier e,Case depart, Case arrive)
 				}
 				
 			}
-			else if (depart.getPosX()<i && depart.getPosY()<j) {//en bas a droite
-				int x = depart.getPosX() + 1;
-				int y = depart.getPosY() + 1;
+			else if (depart.getPosLigne()<i && depart.getPosColonne()<j) {//en bas a droite
+				int x = depart.getPosLigne() + 1;
+				int y = depart.getPosColonne() + 1;
 				
 				if(!(e.getCase(x, y).estVide())) 
 					return false;
@@ -120,20 +120,20 @@ public boolean boucleDiagonale(Echiquier e,Case depart, Case arrive)
 	}
 	
 	public boolean boucleColonne(Echiquier e, Case depart, Case arrive) {
-		if(arrive.getPosX()>depart.getPosX())
+		if(arrive.getPosLigne()>depart.getPosColonne())
 		{
-			for(int i=depart.getPosX()+1; i<arrive.getPosX();i++) 
+			for(int i=depart.getPosLigne()+1; i<arrive.getPosColonne();i++) 
 			{
-				System.out.println("Case, i"+i+e.getCase(i, depart.getPosY()));
-				if(!(e.getCase(i, depart.getPosY()).estVide()))
+				System.out.println("Case, i"+i+e.getCase(i, depart.getPosColonne()));
+				if(!(e.getCase(i, depart.getPosColonne()).estVide()))
 					return false;
 			}
 			
 		}else 
-			for(int i=arrive.getPosX()+1; i<depart.getPosX();i++) 
+			for(int i=arrive.getPosLigne()+1; i<depart.getPosLigne();i++) 
 			{
-				System.out.println("Case, i"+i+e.getCase(i, depart.getPosY()));
-				if(!(e.getCase(i, depart.getPosY()).estVide()))
+				System.out.println("Case, i"+i+e.getCase(i, depart.getPosColonne()));
+				if(!(e.getCase(i, depart.getPosColonne()).estVide()))
 					return false;
 			}
 		
@@ -144,17 +144,17 @@ public boolean boucleDiagonale(Echiquier e,Case depart, Case arrive)
 	}
 	
 	public boolean boucleLigne(Echiquier e, Case depart, Case arrive) {
-		if(arrive.getPosY()>depart.getPosY())
+		if(arrive.getPosColonne()>depart.getPosColonne())
 		{
-			for(int j=depart.getPosY()+1; j<arrive.getPosY();j++) {
-				System.out.println("Case, j"+j+e.getCase(depart.getPosX(),j));
-				if(!(e.getCase(depart.getPosX(),j).estVide()))
+			for(int j=depart.getPosColonne()+1; j<arrive.getPosColonne();j++) {
+				System.out.println("Case, j"+j+e.getCase(depart.getPosLigne(),j));
+				if(!(e.getCase(depart.getPosLigne(),j).estVide()))
 					return false;
 			}
 		}else
-			for(int j=arrive.getPosY()+1; j<depart.getPosY();j++) {
-				System.out.println("Case, j"+j+e.getCase(depart.getPosX(),j));
-				if(!(e.getCase(depart.getPosX(),j).estVide()))
+			for(int j=arrive.getPosColonne()+1; j<depart.getPosColonne();j++) {
+				System.out.println("Case, j"+j+e.getCase(depart.getPosLigne(),j));
+				if(!(e.getCase(depart.getPosLigne(),j).estVide()))
 					return false;
 			}
 		if(super.memeCouleur(depart, arrive))
