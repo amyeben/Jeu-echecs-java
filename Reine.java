@@ -2,29 +2,29 @@
 
 public class Reine extends Piece
 {
-	private String forme;
+	private String propriete;
 
 	public Reine()
 	{
 		super();
 		if(this.getCouleur() == 0)		// si la pièce est noire
-			this.forme = "\u265B";
+			this.propriete = "\u265B";
 		else							// si la pièce est blanche
-			this.forme = "\u2655";
+			this.propriete = "\u2655";
 	}
 
 	public Reine(int ligne, int colonne, int coul)
 	{
 		super(ligne,colonne,coul);
 		if(this.getCouleur() == 0)
-			this.forme = "\u265B";			// si la pièce est noire
+			this.propriete = "\u265B";			// si la pièce est noire
 		else
-			this.forme = "\u2655";			// si la pièce est blanche
+			this.propriete = "\u2655";			// si la pièce est blanche
 	}
 
-	public String getForme()
+	public String getpropriete()
 	{
-		return this.forme;
+		return this.propriete;
 	}
 
 	public boolean  verifDeplacement(Echiquier e,Case arrive) {
@@ -164,7 +164,7 @@ public boolean boucleDiagonale(Echiquier e,Case depart, Case arrive)
 	}
 	public String toString()
 	{
-		return super.toString() + " et la piece a la forme " + this.forme;
+		return super.toString() + " et la piece a les propriétés suivantes: " + this.propriete;
 	}
 
 }
