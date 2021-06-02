@@ -1,4 +1,3 @@
-import java.math.*;
 
 public class Tour extends Piece {
 
