@@ -65,7 +65,27 @@ public class Piece {
 	
 	public String toString() {
 		
-		return ("La pièce se situe à la ligne"+getLigne()+", et à la colonne"+ this.colonne+". Elle est de couleur "+couleurpiece()+".");
+		return ("La pièce se situe à la ligne"+getLigne()+", et à la colonne"+ getColonne()+". Elle est de couleur "+couleurpiece()+".");
 		 
-	}}
+	}
+	
+// Fonction pour déplacer les pièces, elle est abstraite et est redéfinie dans les différentes pièces en fonctions de leurs rôles
+// À l'aide de recherches nous avons pu finaliser cette méthode	
+	
+	/**public boolean deplacerPiece(Echiquier e,Case a){
+	    Case depart = e.getCase(this.ligne, this.colonne);
+	    System.out.println(depart.getLigne() + " et : " + depart.getColonne());
+	    System.out.println(arrive.getLigne() + " et : " + arrive.getColonne());
+	    System.out.println(depart.getPiece().coupPossible(e,arrive));
+	    if(depart.getPiece().coupPossible(e,arrive)) {
+	          System.out.println("entre du if 1");
+	          e.setCase(arrive, depart.getPiece());
+	          System.out.println(e.getCase(arrive.getLigne(),arrive.getColonne()));
+	          depart.setPiece(null);
+	          System.out.println(e.getCase(depart.getLigne(),depart.getColonne()));
+	          return true;
+	      }
+	    return false;
+	  }*/
+	
 }
