@@ -1,55 +1,64 @@
-//La tour se déplace d'un nombre quelconque de cases horizontalement
-//	ou verticalement et peut sauter seulement par-dessus le Roi lors du roque.
 import java.math.*;
-public class Tour extends Piece
-{
-	private String propriete;
 
+public class Tour extends Piece {
+
+	// Déclaration de variables
+	
+	private String propriete;
+	
+	// Getter et Setter
+
+	public String getPropriete() {
+		return propriete;
+	}
+
+	public void setPropriete(String propriete) {
+		this.propriete = propriete;
+	}
+	
+	// Constructeur vide
+
+	
 	public Tour()
 	{
 		super();
+		this.propriete = this.couleurtour();
+
+	}
+	
+	// Constructeur champs à champs avec les informations de Piece
+	
+	public Tour(int ligne, int colonne, int couleur)
+	{
+		super(ligne,colonne,couleur);
+		this.propriete = this.couleurtour();
+	}
+	
+	// Méthode pour les constructions et connaître la couleur de la Tour
+	
+	public String couleurtour() {
+		String s;
 		if(this.getCouleur() == 0)
-		{
-			this.propriete = "\u265C";					// si la pièce est noire
-		}
-		else
-		{
-			this.propriete = "\u2656";					// si la pièce est blanche
-		}
-
+	        s = "\u2656";
+	      else
+	        s = "\u265C";
+		return s;
+		
 	}
-	public Tour(int ligne, int colonne, int coul)
-	{
-		super(ligne,colonne,coul);
-		if(this.getCouleur() == 0)
-		{
-			this.propriete = "\u265C";					// si la pièce est noire
-		}
-		else
-		{
-			this.propriete = "\u2656";					// si la pièce est blanche
-		}
-	}
+	
+	public void deplacer() {}
+	
+	// À l'aide de recherches nous avons pu finaliser cette méthode
+	
+	public boolean coupPossible(Echiquier e, Case a) {
+		int dLigne = this.getLigne();
+		int dColonne = this.getColonne();
+		int i = a.getLigne();
+		int j = a.getColonne();
+		
+		//Ici on s'assure que la case à atteindre sur plateau
 
-	public String getPropriete()
-	{
-		return this.propriete;
-	}
-
-	public void deplacer()
-	{
-	}
-
-	//Si la piece est une Tour
-	//Si il n'y a personne devant moi ou a coté et si la case désigné est une caseVide : True
-	public boolean coupPossible(Echiquier e, Case arrive)
-	{
-		int departLigne = this.getPosLigne();
-		int departColonne = this.getPosColonne();
-		int i = arrive.getPosLigne();
-		int j = arrive.getPosColonne();
-
-		if(Math.abs(departLigne - i) <= 8 && Math.abs(departColonne - j) == 0 || Math.abs(departLigne - i ) == 0 && Math.abs(departColonne - j) <=8 )
+		if(Math.abs(dLigne - i) <= 8 && Math.abs(dColonne - j) == 0 || Math.abs(dLigne - i ) == 0 && Math.abs(dColonne - j) <=8 )
 		{
 			return true;
 		}
@@ -57,12 +66,14 @@ public class Tour extends Piece
 		{
 			return false;
 		}
-
-	}
-
+		}
+	
 	public String toString()
 	{
 		return super.toString() + " et la piece a les propriétés suivantes: " + this.propriete;
 	}
-
+	
+	
+	
+	
 }
