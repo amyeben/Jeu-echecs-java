@@ -8,24 +8,24 @@ public abstract class Piece
   public Piece(){
   }
 
-  public Piece(int x, int y, int couleur)
+  public Piece(int ligne, int colonne, int couleur)
   {
-    this.ligne = x;
-    this.colonne = y;
+    this.ligne = ligne;
+    this.colonne = colonne;
     this.couleur = couleur;
   }
 
     public boolean deplacer(Echiquier e,Case arrive){
-    Case depart = e.getCase(this.x, this.y);
-    System.out.println(depart.getPosX() + " et : " + depart.getPosY());
-    System.out.println(arrive.getPosX() + " et : " + arrive.getPosY());
-    System.out.println(depart.getPiece().verifDeplacement(e,arrive));
-    if(depart.getPiece().verifDeplacement(e,arrive)) {
+    Case depart = e.getCase(this.ligne, this.colonne);
+    System.out.println(depart.getPosLigne() + " et : " + depart.getPosColonne());
+    System.out.println(arrive.getPosLigne() + " et : " + arrive.getPosColonne());
+    System.out.println(depart.getPiece().coupPossible(e,arrive));
+    if(depart.getPiece().coupPossible(e,arrive)) {
           System.out.println("entre du if 1");
           e.setCase(arrive, depart.getPiece());
-          System.out.println(e.getCase(arrive.getPosX(),arrive.getPosY()));
+          System.out.println(e.getCase(arrive.getPosLigne(),arrive.getPosColonne()));
           depart.setPiece(null);
-          System.out.println(e.getCase(depart.getPosX(),depart.getPosX()));
+          System.out.println(e.getCase(depart.getPosLigne(),depart.getPosColonne()));
           return true;
       }
     return false;
@@ -68,18 +68,18 @@ public abstract class Piece
   /*___________________FIN DES GETTERS	*/
 
     /* SETTERS */
-  public void setPosLigneEtColonne(int x, int y) {
-    this.setPosLigne(x);
-    this.setPosColonne(y);
+  public void setPosLigneEtColonne(int ligne, int colonne) {
+    this.setPosLigne(ligne);
+    this.setPosColonne(colonne);
   }
-    public void setPosLigne(int x)
+    public void setPosLigne(int ligne)
     {
-      this.ligne = x;
+      this.ligne = ligne;
     }
 
-    public void setPosColonne(int y)
+    public void setPosColonne(int colonne)
     {
-      this.colonne = y;
+      this.colonne = colonne;
     }
 
     public void setCouleur(int c)
