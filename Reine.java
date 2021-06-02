@@ -52,62 +52,62 @@ public boolean boucleDiagonale(Echiquier e,Case depart, Case arrive)
 			int j = arrive.getPosColonne();
 			if(depart.getPosLigne()>i && depart.getPosColonne()<j)  //en haut a droite
 			{
-				int x = depart.getPosLigne() - 1;
-				int y = depart.getPosColonne() + 1;
+				int ligne = depart.getPosLigne() - 1;
+				int colonne = depart.getPosColonne() + 1;
 				
 				if(!(e.getCase(x, y).estVide())) 
 					return false;
 				
-				while(x > i && y < j)
+				while(ligne > i && colonne < j)
 				{
-					if (!(e.etatCase(e.getCase(x,y)) ))
+					if (!(e.etatCase(e.getCase(ligne,colonne)) ))
 						return false;
-					x = x - 1;
-					y = y + 1;
+					ligne = ligne - 1;
+					colonne = colonne + 1;
 				}
 			}
 			else if(depart.getPosLigne()>i && depart.getPosColonne()>j) {//en haut a gauceh
-				int x = depart.getPosLigne() - 1;
-				int y = depart.getPosColonne() - 1;
+				int ligne = depart.getPosLigne() - 1;
+				int colonne = depart.getPosColonne() - 1;
 				if(!(e.getCase(x, y).estVide())) 
 					return false;
 				
-				while(x > i && y > j)
+				while(ligne > i && colonne > j)
 				{
 					
-					if (!(e.etatCase(e.getCase(x,y)) ))
+					if (!(e.etatCase(e.getCase(ligne,colonne)) ))
 						return false;
-					x = x - 1;
-					y = y - 1;
+					ligne = ligne - 1;
+					colonne = colonne - 1;
 				}
 				
 			}
-			else if (depart.getPosX()<i && depart.getPosY()>j) {//en bas a gauche
-				int x = depart.getPosX() + 1;
-				int y = depart.getPosY() - 1;	
+			else if (depart.getPosLigne()<i && depart.getPosColonne()>j) {//en bas a gauche
+				int ligne = depart.getPosLigne() + 1;
+				int colonne = depart.getPosColonne() - 1;	
 				if(!(e.getCase(x, y).estVide())) 
 					return false;
-				while(x < i && y > j)
+				while(ligne < i && colonne > j)
 				{
-					if (!(e.etatCase(e.getCase(x,y)) ))
+					if (!(e.etatCase(e.getCase(ligne,colonne)) ))
 						return false;
-					x = x + 1;
-					y = y - 1;
+					ligne = ligne + 1;
+					colonne = colonne - 1;
 				}
 				
 			}
 			else if (depart.getPosLigne()<i && depart.getPosColonne()<j) {//en bas a droite
-				int x = depart.getPosLigne() + 1;
-				int y = depart.getPosColonne() + 1;
+				int ligne = depart.getPosLigne() + 1;
+				int colonne = depart.getPosColonne() + 1;
 				
-				if(!(e.getCase(x, y).estVide())) 
+				if(!(e.getCase(ligne, colonne).estVide())) 
 					return false;
-				while(x < i && y < j)
+				while(ligne < i && colonne < j)
 				{
-					if (!(e.etatCase(e.getCase(x,y)) ))
+					if (!(e.etatCase(e.getCase(ligne,colonne)) ))
 						return false;
-					x = x + 1;
-					y = y + 1;
+					ligne = ligne + 1;
+					colonne = colonne + 1;
 				}
 				
 			}
@@ -129,7 +129,9 @@ public boolean boucleDiagonale(Echiquier e,Case depart, Case arrive)
 					return false;
 			}
 			
-		}else 
+		}
+		
+		else 
 			for(int i=arrive.getPosLigne()+1; i<depart.getPosLigne();i++) 
 			{
 				System.out.println("Case, i"+i+e.getCase(i, depart.getPosColonne()));
