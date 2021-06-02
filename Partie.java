@@ -16,7 +16,7 @@ public class Partie
 
 	public Partie()
 	{
-//		this.terrain=new Echiquier();
+//		this.terrain=new Echiquier();jhjhj
 	}
 
 	public Partie(Joueur j1, Joueur j2)
@@ -49,14 +49,14 @@ public class Partie
 		else
 			if(choixMenu == 2){
 				try{
-				this.sauvegarderPartie("sauve.txt");
+				this.sauvegarder("sauve.txt");
 			}catch (Exception e) {
-					System.out.println("Partie pas sauvegarder !!!!!!!!!!!!!!!");
+					System.out.println("Partie non sauvegarder /!\ ");
 				}
 			}
 		else
 			if (choixMenu == 3) {
-					System.out.println("ca Charge");
+					System.out.println("Chargement en cours");
 			}
 		else
 			if (choixMenu == 4) {
@@ -78,7 +78,7 @@ public class Partie
 	// {
 	// }
 
-	public boolean verifDeplacement(Piece p)
+	public boolean coupPossible(Piece p)
 	{
 		return true;		// JUSTE POUR LA COMPILATION
 	}
@@ -113,9 +113,9 @@ public class Partie
 		int choixMenu = saisiess.nextInt();
 		while(tours != 0)
 		{
-			System.out.println("Saisir 5 : revenir menu \nSaisir 6 pour continuer ");
+			System.out.println("Saisir 5 : revenir au menu \nSaisir 6 pour continuer ");
 			do{
-			System.out.println("Saisir 5 : revenir menu \nSaisir 6 pour continuer ");
+			System.out.println("Saisir 5 : revenir au menu \nSaisir 6 pour continuer ");
 			if (tours %2 == 0)
 				this.tourDeJeu(j1,tours);
 			this.tourDeJeu(j2,tours);
@@ -138,20 +138,20 @@ public class Partie
 	}
 
 
-	public void sauvegarderPartie(String fichier) throws IOException
+	public void sauvegarder(String fichier) throws IOException
 	{
 
 		BufferedWriter f = new BufferedWriter(new FileWriter(fichier,true));
 		f.write(this.joueur1.getPrenom() + "\t" + this.joueur1.getCouleur());
 		f.newLine();
 		f.write(this.joueur2.getPrenom() + "\t" +this.joueur2.getCouleur());
-		System.out.println(this.terrain.getCase(0,7).getPiece().getForme());
+		System.out.println(this.terrain.getCase(0,7).getPiece().getPropriete());
 		for (int i = 0; i < 8; i++)
 		{
 			for (int j = 0; j < 8; j++)
 			{
 				f.newLine();
-				f.write(this.terrain.getCase(i,j).getPiece() + "\t" + this.terrain.getCase(i,j).getPosX() + "\t" + this.terrain.getCase(i,j).getPosY());
+				f.write(this.terrain.getCase(i,j).getPiece() + "\t" + this.terrain.getCase(i,j).getPosLigne() + "\t" + this.terrain.getCase(i,j).getPosColonne());
 			}
 		}
 		f.close();
@@ -207,7 +207,7 @@ public class Partie
 		int coulChoix = 2;
 		Piece choix;
 		System.out.println(this.getTerrain().afficher());
-		System.out.println(j.getPrenom() + ", quelle pièce voulez-vous déplacer? (saisir coordonnées)");
+		System.out.println(j.getPrenom() + ", quelle pièce voulez-vous déplacer? (saisir les coordonnées)");
 		int ligi,lig;
 		String posPiece,pos;
 		//Boucle se répète tant qu'on a pas saisie une case contenant une Piece
@@ -217,13 +217,13 @@ public class Partie
 					posPiece = saisie.nextLine();
 					ligi = posPiece.charAt(1)-'0'; //-'0' : pour que le char se transforme en int
 
-			//Si la case selectionné ne contient pas de piece
+			//Si la case selectionnée ne contient pas de piece:
 					if(this.getTerrain().etatCase(j.getChoixCase(this.getTerrain(),ligi,posPiece.charAt(0))))
-							System.out.println("Cette case ne contient pas de Pièce, veuillez réessayer :");
+							System.out.println("/!\ cette case ne contient pas de pièce, veuillez réessayer :");
 
 			}while(this.getTerrain().etatCase(j.getChoixCase(this.getTerrain(),ligi,posPiece.charAt(0))));
 
-			System.out.println("Position saisie -> "+posPiece+" : "+j.getChoixPiece(this.getTerrain(),ligi,posPiece.charAt(0)));
+			System.out.println("La position saisie est: "+posPiece+" : "+j.getChoixPiece(this.getTerrain(),ligi,posPiece.charAt(0)));
 			Case cD = j.getChoixCase(this.getTerrain(),ligi,posPiece.charAt(0));
 			int coulChoixD = cD.getPiece().getCouleur();
 			/*Case où se déplacer   */
@@ -239,18 +239,18 @@ public class Partie
 					}
 
 					if(coulChoix == coulChoixD)
-							System.out.println("Cette case contient une Piece, veuillez réessayer :");
+							System.out.println(" /!\ Cette case contient une pièce, veuillez réessayer :");
 
 			}while(coulChoix == coulChoixD);
 
 
-			System.out.println("Position saisie -> "+pos+" : "+j.getChoixCase(this.getTerrain(),lig,pos.charAt(0)));
+			System.out.println("La position saisie est: "+pos+" : "+j.getChoixCase(this.getTerrain(),lig,pos.charAt(0)));
 
 			Case depart=j.getChoixCase(this.getTerrain(),ligi,posPiece.charAt(0));
 			Case arrive=j.getChoixCase(this.getTerrain(),lig,pos.charAt(0));
-			System.out.println(depart.getPosX() + " et : " + depart.getPosY());
-			System.out.println(arrive.getPosX() + " et : " + arrive.getPosY());
-			depart.getPiece().deplacerPieces(this.getTerrain(),arrive);
+			System.out.println(depart.getPosLigne() + " et : " + depart.getPosColonne());
+			System.out.println(arrive.getPosLigne() + " et : " + arrive.getPosColonne());
+			depart.getPiece().deplacer(this.getTerrain(),arrive);
 			System.out.println("Piece déplacé");
 			System.out.println(this.getTerrain().afficher());
 		}catch(Exception ex){
@@ -264,9 +264,9 @@ public class Partie
 		return terrain;
 	}
 
-	public void setTerrain(Echiquier nouvTerrain)
+	public void setTerrain(Echiquier newTerrain)
 	{
-		this.terrain = nouvTerrain;
+		this.terrain = newTerrain;
 	}
 
 
