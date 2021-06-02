@@ -4,18 +4,18 @@
 
 public class Cavalier  extends Piece
 {
-	private String forme;
+	private String propriete;
 
 	public Cavalier()
 	{
 		super();
 		if(this.getCouleur() == 0)
 		{
-			this.forme = "\u265E";					// si la pièce est noire
+			this.propriete = "\u265E";					// si la pièce est noire
 		}
 		else
 		{
-			this.forme = "\u2658";					// si la pièce est blanche
+			this.propriete = "\u2658";					// si la pièce est blanche
 		}
 	}
 
@@ -24,17 +24,17 @@ public class Cavalier  extends Piece
 		super(ligne,colonne,coul);
 		if(this.getCouleur() == 0)
 		{
-			this.forme = "\u265E";					// si la pièce est noire
+			this.propriete = "\u265E";					// si la pièce est noire
 		}
 		else
 		{
-			this.forme = "\u2658";					// si la pièce est blanche
+			this.propriete = "\u2658";					// si la pièce est blanche
 		}
 	}
 
-	public String getForme()
+	public String getpropriete()
 	{
-		return this.forme;
+		return this.propriete;
 	}
 
 	public void deplacerPiece()
@@ -77,6 +77,6 @@ public class Cavalier  extends Piece
 
 	public String toString()
 	{
-		return super.toString() + " et la piece a la forme " + this.forme;
+		return super.toString() + " et la piece a les propriétes suivantes " + this.propriete;
 	}
 }
