@@ -23,7 +23,7 @@ public class Echiquier
 		{
 				for (int j = 0; j < 8; j++)
 				{
-						this.desCases[i][j] = new Case(e.getCase(i,j).getPosX(),e.getCase(i,j).getPosY(),e.getCase(i,j).getPiece());
+						this.desCases[i][j] = new Case(e.getCase(i,j).getPosLigne(),e.getCase(i,j).getPosColonne(),e.getCase(i,j).getPiece());
 				}
 		}
 	}
@@ -42,9 +42,9 @@ public class Echiquier
 	}
 
 	/* getCase() */
-	public Case getCase(int x, int y)
+	public Case getCase(int ligne, int colonne)
 	{
-		return this.desCases[x][y];   // retourne la case par rapport a l'indice x, y
+		return this.desCases[ligne][colonne];   // retourne la case par rapport a l'indice x, y
 	}
 
 	/* setCase() - on modifie la case en lui ajoutant une piece
@@ -55,8 +55,8 @@ public class Echiquier
 	{
 		if(this.etatCase(c))
 		{
-			this.desCases[c.getPosX()][c.getPosY()].setPiece(p);
-			p.setPosXetY(c.getPosX(), c.getPosY());
+			this.desCases[c.getPosLigne()][c.getPosColonne()].setPiece(p);
+			p.setPosXetY(c.getPosLigne(), c.getPosColonne());
 		}
 	}
 
@@ -209,7 +209,7 @@ public class Echiquier
 	// 	return s;
 	// }
 
-// AFFICHAGE V.2 DE L'ÉCHIQUIER
+// AFFICHAGE DE L'ÉCHIQUIER
 	public String afficher()
     {
 		String s = "	    A	    B	    C	    D	    E	    F	    G	    H\n";
