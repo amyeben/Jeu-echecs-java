@@ -1,125 +1,56 @@
-//Le Pion avance d'une case à la fois. Il se déplace d'une case en diagonale en prenant une pièce adverse.
-//	S'il n'a pas encore bougé, il peut avancer de deux cases d'un coup, sans pouvoir sauter une pièce.
-//		Lorsqu'il arrive à la dernière rangée, il est promu en une autre pièce (Cavalier, Fou, Tour ou Reine).
 
-public class Pion  extends Piece
-{
+public class Pion extends Piece{
+	
+	// Déclaration d'instances
+	
 	private String propriete;
+	
+	// Getter et Setter 
 
+	public String getPropriete() {
+		return propriete;
+	}
+
+	public void setPropriete(String propriete) {
+		this.propriete = propriete;
+	}
+	
+	// Constructeur vide
+
+	
 	public Pion()
 	{
 		super();
-		if(this.getCouleur() == 0)
-		{
-			this.propriete = "\u265F";					// si la pièce est noire
-		}
-		else
-		{
-			this.propriete = "\u2659";					// si la pièce est blanche
-		}
+		this.propriete = this.couleurtour();
+
 	}
-
-	public Pion(int ligne, int colonne, int coul)
-	{
-		super(ligne,colonne,coul);
-		if(this.getCouleur() == 0)
-		{
-			this.propriete = "\u265F";					// si la pièce est noire
-		}
-		else
-		{
-			this.propriete = "\u2659";					// si la pièce est blanche
-		}
-	}
-
-	public String getPropriete() {
-		return this.propriete;
-	}
-
-	/*
-	 * la case d'arrive peut être seulement :
-	 * ----> la case de devant
-	 * ----> la case +2 par rapport a la depart
-	 * 		ssi depart = posInitiale
-	 * 		et ssi depart+1 = vide
-	 * 	ARRIVE devant DEPART
-	 */
-
-	public boolean coupPossible (Echiquier e, Case arrive)
-	{
-		Case depart=e.getCase(this.getPosLigne(), this.getPosColonne());
-		if(e.etatCase(arrive))
-		{
-			if(this.positionInitialePion())
-			{
-				System.out.println("position Initiale" + depart.getPiece().getCouleur());
-				if(depart.caseDevant(arrive))
-					//System.out.println("Pos initiale + devant ok");
-					return true;
-				/*
-				if(arrive.getPosX()>depart.getPosX()+2)
-					return false;
-					*/
-				System.out.println("test 2");
-				if(depart.getPiece().getCouleur() == 0){
-					if(arrive.equals(e.getCase(depart.getPosLigne()+2, depart.getPosColonne()))
-							&& e.getCase(depart.getPosLigne()+1, depart.getPosColonne()).estVide())
-						//System.out.println("case vide devant + ok");
-						return true;
-				}
-				else {
-					System.out.println("test 3");
-					if(arrive.equals(e.getCase(depart.getPosLigne()-2, depart.getPosColonne()))
-							&& e.getCase(depart.getPosLigne()-1, depart.getPosColonne()).estVide())
-						System.out.println("case vide devant + ok");
-
-						return true;}
-			}
-			else
-			{
-
-				if(depart.caseDevant(arrive))
-					//System.out.println("devant ok");
-					return true;
-
-				if(arrive.getPosLigne()>depart.getPosLigne()+1 || arrive.getPosLigne()>depart.getPosLigne()-1)
-					return false;
-			}
-		}
-		//Pour le cas de manger
-		else
-			if(depart.manger(arrive))
-			return true;
-
-		return false;
-			//System.out.println("arrive pas vide");
-	}
-	public boolean positionInitialePion() {
-
-		if(this.getCouleur() == 0)
-		{
-			for (int j = 0; j < 8 ; j++)
-			{
-					if(this.getPosLigne() == 1 && this.getPosColonne() == j)
-						return true;
-			}
-
-		} 
 		
-		else
-		{
-			for (int j = 0; j < 8 ; j++)
-			{
-				if(this.getPosLigne() == 6 && this.getPosColonne() == j)
-					return true;
-			}
-
-		}
-		return false;
+	// Constructeur champs à champs avec les informations de Piece
+		
+	public Pion(int ligne, int colonne, int couleur)
+	{
+		super(ligne,colonne,couleur);
+		this.propriete = this.couleurtour();
 	}
+		
+	// Méthode pour les constructions et connaître la couleur de la Tour
+		
+	public String couleurtour() {
+		String s;
+		if(this.getCouleur() == 0)
+		        s = "\u265F";
+	      else
+		        s = "\u2659";
+		return s;
+			
+		}
+	
+	// Manque méthode coup possible, et déplacement
+	
 	public String toString()
 	{
-		return super.toString() + " et la piece a les propriétes suivantes: " + this.propriete;
+		return super.toString() + " et la piece ressemble à ça: " + this.propriete;
 	}
-
+	
+	
 }
