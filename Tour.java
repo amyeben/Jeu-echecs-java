@@ -69,7 +69,7 @@ public class Tour extends Piece {
 	
 	public String toString()
 	{
-		return super.toString() + " et la piece a les propriétés suivantes: " + this.propriete;
+		return super.toString() + " et la piece ressemble à ça: " + this.propriete;
 	}
 	
 	
