@@ -1,3 +1,4 @@
+
 public class Piece {
 	
 //	Declaration des instances
@@ -56,7 +57,7 @@ public class Piece {
 	public String couleurpiece() {
 		String s;
 		if(this.couleur == 0)
-	        s = "blanc";
+	        s = "blanche";
 	      else
 	        s = "noir";
 		return s;
