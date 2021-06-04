@@ -1,55 +1,62 @@
-//Le Cavalier se déplace en L, deux cases dans une direction (horizontalement ou verticalement),
-//	puis d'une case perpendiculairement.
-//		Il est le seul à pouvoir sauter par-dessus une pièce lors de son mouvement (ainsi que la Tour mais seulement lors du roque).
 
-public class Cavalier  extends Piece
-{
+public class Cavalier extends Piece{
+
+	// Déclaration d'instances
+	
 	private String propriete;
+		
+	// Getter et Setter 
+	
+	public String getPropriete() {
+		return propriete;
+	}
 
+	public void setPropriete(String propriete) {
+		this.propriete = propriete;
+	}
+	
+	// Constructeur vide
+	
 	public Cavalier()
 	{
 		super();
+		this.propriete = this.couleurcavalier();
+
+	}
+		
+	// Constructeur champs à champs avec les informations de Piece
+		
+	public Cavalier(int ligne, int colonne, int couleur)
+	{
+		super(ligne,colonne,couleur);
+		this.propriete = this.couleurcavalier();
+	}
+		
+	// Méthode pour les constructions et connaître la couleur du Cavalier
+		
+	public String couleurcavalier() {
+		String s;
 		if(this.getCouleur() == 0)
-		{
-			this.propriete = "\u265E";					// si la pièce est noire
+		        s = "\u265E";
+	      else
+		        s = "\u2658";
+		return s;
+			
 		}
-		else
-		{
-			this.propriete = "\u2658";					// si la pièce est blanche
-		}
-	}
-
-	public Cavalier(int ligne, int colonne, int coul)
+	
+	public String toString()
 	{
-		super(ligne,colonne,coul);
-		if(this.getCouleur() == 0)
-		{
-			this.propriete = "\u265E";					// si la pièce est noire
-		}
-		else
-		{
-			this.propriete = "\u2658";					// si la pièce est blanche
-		}
+		return super.toString() + " et la piece ressemble à ça: " + this.propriete;
 	}
-
-	public String getpropriete()
+	
+	public boolean coupPossible(Echiquier e, Case a)
 	{
-		return this.propriete;
-	}
+		int dLigne = this.getLigne();
+		int dColonne = this.getColonne();
+		int i = a.getLigne();
+		int j = a.getColonne();
 
-	public void deplacer()
-	{
-	}
-
-
-	public boolean coupPossible(Echiquier e, Case arrive)
-	{
-		int departLigne = this.getPosLigne();
-		int departColonne = this.getPosColonne();
-		int i = arrive.getPosLigne();
-		int j = arrive.getPosColonne();
-
-		if( Math.abs(departLigne - i) == 2 && Math.abs(departColonne - j) == 1 || Math.abs(departLigne - i) == 1 && Math.abs(departColonne - j) ==2 )
+		if( Math.abs(dLigne - i) == 2 && Math.abs(dColonne - j) == 1 || Math.abs(dLigne - i) == 1 && Math.abs(dColonne - j) ==2 )
 		{
 			return true;
 		}
@@ -58,25 +65,6 @@ public class Cavalier  extends Piece
 		{
 			return false;
 		}
-
-
-		/* Vérifie tout les points en L :
-		si on prend la piece a déplacer comme orgine on a (i,j) (abscisse,ordonné) :
-		(1,2) (2,1) (2,-1) (1,-2) (-1,-2) (-2,-1) (-2,1) (-1,2)
-		Ou bien si le cavalier est sur une case blanche alors
-		il peut se déplacer dans toutes les cases noir du deuxieme carré qui l'encercle
-		*: ou je peux me déplacer
-				_____________
-				|B  * B *  B|
-				|* |B N B| *|
-				|B |N C N| B|
-				|* |B N B| *|
-				|B  * B *  B|
-	*/
-	}
-
-	public String toString()
-	{
-		return super.toString() + " et la piece a les propriétes suivantes " + this.propriete;
-	}
-}
+	}}
+	
+	
