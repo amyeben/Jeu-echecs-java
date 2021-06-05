@@ -1,118 +1,131 @@
-//Le Roi se déplace d'une seule case dans toutes les directions et de deux cases lors du roque.
-import java.math.*;
+public class Roi extends Piece{
 
-public class Roi  extends Piece
-{
-
+	// Déclaration d'instances
+	
 	private String propriete;
+		
+	// Getter et Setter 
+	
+	public String getPropriete() {
+		return propriete;
+	}
 
+	public void setPropriete(String propriete) {
+		this.propriete = propriete;
+	}
+	
+	// Constructeur vide
+	
 	public Roi()
 	{
 		super();
+		this.propriete = this.couleurroi();
+
+	}
+		
+	// Constructeur champs à champs avec les informations de Piece
+		
+	public Roi(int ligne, int colonne, int couleur)
+	{
+		super(ligne,colonne,couleur);
+		this.propriete = this.couleurroi();
+	}
+		
+	// Méthode pour les constructions et connaître la couleur du Cavalier
+		
+	public String couleurroi() {
+		String s;
 		if(this.getCouleur() == 0)
-			this.propriete = "\u265A";				// si la pièce est noire
-		else
-			this.propriete = "\u2654";				// si la pièce est blanche
+		        s = "\u265A";
+	      else
+		        s = "\u2654";
+		return s;
+			
+		}
+	
+	public String toString()
+	{
+		return super.toString() + " et la piece ressemble à ça: " + this.propriete;
 	}
 
-	public Roi(int ligne, int colonne, int coul)
+	
+	//Méthode trouvez grâce nos recherches
+	
+	public boolean hautDroite(Case d, Case a)
 	{
-		super(ligne,colonne,coul);
-		if(this.getCouleur() == 0)
-			this.propriete = "\u265A";				// si la pièce est noire
-		else
-			this.propriete = "\u2654";				// si la pièce est blanche
-	}
-
-	public String getPropriete()
-	{
-		return this.propriete;
-	}
-
-		public boolean hautDroite(Case depart, Case arrive)
-	{
-		if(arrive.getPosLigne()==depart.getPosLigne()-1 && arrive.getPosColonne()==depart.getPosColonne()+1)  //en haut à droite
+		if(a.getLigne()==d.getLigne()-1 && a.getColonne()==d.getColonne()+1)  //en haut à droite
 			return true;
 		return false;
 	}
-
-	public boolean hautGauche(Case depart, Case arrive) {
-		if(arrive.getPosLigne()==depart.getPosLigne()-1 && arrive.getPosColonne()==depart.getPosColonne()-1) //en haut à gauche 
+	
+	public boolean hautGauche(Case d, Case a) {
+		if(a.getLigne()==d.getLigne()-1 && a.getColonne()==d.getColonne()-1) //en haut à gauche 
 			return true;
 		return false;
 
 	}
   
-  public boolean basDroite(Case depart, Case arrive) {
-		if (arrive.getPosLigne()==depart.getPosLigne()+1 && arrive.getPosColonne()==depart.getPosColonne()+1) //en bas à droite
+  public boolean basDroite(Case d, Case a) {
+		if (a.getLigne()==d.getLigne()+1 && a.getColonne()==d.getColonne()+1) //en bas à droite
 			return true;
 		return false;
 	}
   
-	public boolean basGauche(Case depart, Case arrive) {
-		if (arrive.getPosLigne()==depart.getPosLigne()+1 && arrive.getPosColonne()==depart.getPosColonne()-1) //en bas à gauche
+	public boolean basGauche(Case d, Case a) {
+		if (a.getLigne()==d.getLigne()+1 && a.getColonne()==d.getColonne()-1) //en bas à gauche
 			return true;
 		return false;
 	}
 
 
 
-	public boolean memeLigne(Case depart, Case arrive) {
-		if(depart.memeLigne(arrive)) {
-			if(arrive.getPosColonne() == depart.getPosColonne()-1)
+	public boolean memeLigne(Case d, Case a) {
+		if(d.memeLigne(a)) {
+			if(a.getColonne() == d.getColonne()-1)
 				return true;
-			else if(arrive.getPosColonne() == depart.getPosColonne()+1)
-				return true;
-		}
-		return false;
-	}
-
-	public boolean memeColonne(Case depart, Case arrive) {
-		if(depart.memeColonne(arrive)) {
-			if(arrive.getPosLigne() == depart.getPosLigne()-1)
-				return true;
-			else if(arrive.getPosLigne() == depart.getPosLigne()+1)
+			else if(a.getColonne() == d.getColonne()+1)
 				return true;
 		}
 		return false;
 	}
 
+	public boolean memeColonne(Case d, Case a) {
+		if(d.memeColonne(a)) {
+			if(a.getLigne() == d.getLigne()-1)
+				return true;
+			else if(a.getLigne() == d.getLigne()+1)
+				return true;
+		}
+		return false;
+	}
 
-	/*
-	 * les case autours
-	 */
-	public boolean coupPossible(Echiquier e, Case arrive)
+	public boolean coupPossible(Echiquier e, Case a)
 	{
-		Case depart = e.getCase(this.getPosLigne(), this.getPosColonne());
-		System.out.println("couleur de départ " + depart.getPiece().getCouleur() + " et couleur d'arrivée " + arrive.getPiece().getCouleur());
-		if(!(this.memeColonne(depart, arrive)) && arrive.getPiece().getCouleur() == depart.getPiece().getCouleur())
+		Case d = e.getCase(this.getLigne(), this.getColonne());
+		System.out.println("couleur de départ " + d.getP().getCouleur() + " et couleur d'arrivée " + a.getP().getCouleur());
+		if(!(this.memeColonne(d, a)) && a.getP().getCouleur() == d.getP().getCouleur())
 			return false;
 
-		if(!(this.memeLigne(depart, arrive)) && arrive.getPiece().getCouleur() == depart.getPiece().getCouleur())
+		if(!(this.memeLigne(d, a)) && a.getP().getCouleur() == d.getP().getCouleur())
 			return false;
 
-		if(!(this.hautDroite(depart, arrive)))
+		if(!(this.hautDroite(d, a)))
 			return false;
 
-		if(!(this.hautGauche(depart, arrive)))
+		if(!(this.hautGauche(d, a)))
 			return false;
 
-		if(!(this.basDroite(depart, arrive)))
+		if(!(this.basDroite(d, a)))
 			return false;
 
-		if(!(this.basGauche(depart, arrive)))
+		if(!(this.basGauche(d, a)))
 			return false;
 
-		if(super.memeCouleur(depart, arrive))
+		if(super.memeCouleur(d, a))
 			return false;
 
 		return true;
 	}
 
-
-	public String toString()
-	{
-		return super.toString() + " et la piece a les propriétes suivantes " + this.propriete;
-	}
 
 }
