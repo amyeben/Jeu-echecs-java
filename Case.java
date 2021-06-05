@@ -1,4 +1,3 @@
-
 public class Case {
 
 //	Declaration des instances	
@@ -69,6 +68,60 @@ public class Case {
 			 
 		}
 	  
-	  /**  méthode qui manque memeColonne, memeLigne, manger,caseDevant */
+	  /** memeColonne, memeLigne, mangerpiece, caseDevant */
+	  
+	  public boolean memeColonne(Case a)
+	  {
+	    if(this.getColonne() == a.getColonne())
+	      return true;
+	    return false;
+	        
+	  }
+	      
+	  public boolean memeLigne(Case a)
+	  {
+		  if(this.getLigne()== a.getLigne())
+	        return true;
+	      return false;
+	          
+	    }
+	  
+	  public boolean mangerpiece(Case a) {
+		    if(this.getP().getCouleur() != a.getP().getCouleur())
+		    {
+		      if(this.getP().getCouleur()==0)//Blanc
+		        if(a.getLigne()==this.getLigne()+1)
+		        {
+		          if(a.getColonne()==this.getColonne()-1)
+		            return true;
+		          else if (a.getColonne()==this.getColonne()+1)
+		            return true;
+		        }
+		      else 
+		      
+		        if(a.getLigne()==this.getLigne()-1)
+		        {
+		          if(a.getColonne()==this.getColonne()-1)
+		            return true;
+		          else if (a.getColonne()==this.getColonne()+1)
+		            return true;
+		        }
+		    }
+		      
+		    return false;
+		  }
+	  
+	  public boolean caseDevant(Case a) {
+	      if(this.getP().getCouleur() == 0)//noir
+	        if(this.memeColonne(a) && this.getLigne()+1 == a.getLigne())
+	          return true;
+	      else if (this.getP().getCouleur() == 1)
+	        if(this.memeColonne(a) && this.getLigne()-1 == a.getLigne())
+	          return true;
+	      
+	      return false;
+	    }
 	
+
+	  
 }
