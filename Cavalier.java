@@ -1,4 +1,3 @@
-
 public class Cavalier extends Piece{
 
 	// Déclaration d'instances
@@ -68,3 +67,4 @@ public class Cavalier extends Piece{
 	}}
 	
 	
+
