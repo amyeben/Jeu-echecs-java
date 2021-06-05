@@ -1,4 +1,5 @@
 
+
 public class Tour extends Piece {
 
 	// Déclaration de variables
