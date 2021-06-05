@@ -3,15 +3,23 @@ import java.io.*;
 
 public class Echiquier
 {
-	private Case[][] desCases;
+	
+	// Déclaration de variables
+	
+	private Case[][] Cases;
 	ArrayList<Piece> listeEnnemie = new ArrayList<Piece>();
+	
+	// Constructeur vide
 
 	public Echiquier()
 	{
 		this.initialiser();
-		this.initialiserPiecesNoir();
-		this.initialiserPiecesBlanche();
+		this.piecesNoir();
+		this.piecesBlanche();
 	}
+	
+	// Constructeurs champs à champs
+	
 	public Echiquier(boolean t)
 	{
 		if (t == false)
@@ -23,99 +31,94 @@ public class Echiquier
 		{
 				for (int j = 0; j < 8; j++)
 				{
-						this.desCases[i][j] = new Case(e.getCase(i,j).getPosLigne(),e.getCase(i,j).getPosColonne(),e.getCase(i,j).getPiece());
+						this.Cases[i][j] = new Case(e.getCase(i,j).getLigne(),e.getCase(i,j).getColonne(),e.getCase(i,j).getP());
 				}
 		}
 	}
+	
+	// Getter et Setter
+	
+	public Case getCase(int ligne, int colonne)
+	{
+		return this.Cases[ligne][colonne];   
+	}
+	
+	public Case[][] getCases()
+	{
+		return this.Cases;
+	}
 
-	/* Initialise le tableau */
+	public void setCase(Case c, Piece p)
+	{
+		if(this.estVide(c))
+		{
+			this.Cases[c.getLigne()][c.getColonne()].setP(p); // Si vide --> on place la pièce
+			p.setLetC(c.getLigne(), c.getColonne());
+		}
+	}
+
+	// MÉTHODES
+	
 	public void initialiser()
 	{
-		this.desCases = new Case[8][8];
+		this.Cases = new Case[8][8];
 		for(int i = 0; i < 8; i++)
 		{
 			for(int j = 0; j < 8; j++)
 			{
-				this.desCases[i][j] = new Case(i,j);
+				this.Cases[i][j] = new Case(i,j);
 			}
 		}
 	}
 
-	/* getCase() */
-	public Case getCase(int ligne, int colonne)
+
+	public boolean estVide(Case c)
 	{
-		return this.desCases[ligne][colonne];   // retourne la case par rapport a l'indice x, y
-	}
-
-	/* setCase() - on modifie la case en lui ajoutant une piece
-	 * On ajoute la piece dans la case concerné
-	 * Si la case est vide alors je peux placer ma piece  */
-
-	public void setCase(Case c, Piece p)
-	{
-		if(this.etatCase(c))
-		{
-			this.desCases[c.getPosLigne()][c.getPosColonne()].setPiece(p);
-			p.setPosXetY(c.getPosLigne(), c.getPosColonne());
-		}
-	}
-
-
-	/*Soumeya___
-	 * En ne mettant que la case concerné on retourne True si elle est vide ou bien false*/
-	public boolean etatCase(Case c)
-	{
-		if(c.estVide())
-			return true;
+		if(c.CaseVide()) 
+			return true; 
 		return false;
 	}
-
-	/* GETTER */
-	public Case[][] getDesCases()
+	
+	public void piecesBlanche()
 	{
-		return this.desCases;
-	}
-
-	public void initialiserPiecesNoir()
-	{
-		//  Je place les pieces du joueur Noir
+		
 		for (int i = 0; i < 2 ; i++)
 		{
-				this.desCases[i][0].setPiece(new Tour(i,0,0));
-				this.desCases[i][1].setPiece(new Cavalier(i,1,0));
-				this.desCases[i][2].setPiece(new Fou(i,2,0));
-				this.desCases[i][3].setPiece(new Reine(i,3,0));
-				this.desCases[i][4].setPiece(new Roi(i,4,0));
-				this.desCases[i][5].setPiece(new Fou(i,5,0));
-				this.desCases[i][6].setPiece(new Cavalier(i,6,0));
-				this.desCases[i][7].setPiece(new Tour(i,7,0));
+				this.Cases[i][0].setP(new Tour(i,0,0));
+				this.Cases[i][1].setP(new Cavalier(i,1,0));
+				this.Cases[i][2].setP(new Fou(i,2,0));
+				this.Cases[i][3].setP(new Reine(i,3,0));
+				this.Cases[i][4].setP(new Roi(i,4,0));
+				this.Cases[i][5].setP(new Fou(i,5,0));
+				this.Cases[i][6].setP(new Cavalier(i,6,0));
+				this.Cases[i][7].setP(new Tour(i,7,0));
 				if (i == 1)
 				{
 					for (int j = 0; j < 8; j++)
 					{
-						this.desCases[i][j].setPiece(new Pion(i,j,0));
+						this.Cases[i][j].setP(new Pion(i,j,0));
 					}
 				}
 		}
 	}
-	public void initialiserPiecesBlanche()
+	public void piecesNoir()
 	{
-		// Je place les pieces du joueur blanc
+		
 		for (int i = 7; i > 5 ; i--)
 		{
-			this.desCases[i][0].setPiece(new Tour(i,0,1));
-			this.desCases[i][1].setPiece(new Cavalier(i,1,1));
-			this.desCases[i][2].setPiece(new Fou(i,2,1));
-			this.desCases[i][3].setPiece(new Reine(i,3,1));
-			this.desCases[i][4].setPiece(new Roi(i,4,1));
-			this.desCases[i][5].setPiece(new Fou(i,5,1));
-			this.desCases[i][6].setPiece(new Cavalier(i,6,1));
-			this.desCases[i][7].setPiece(new Tour(i,7,1));
+			this.Cases[i][0].setP(new Tour(i,0,1));
+			this.Cases[i][1].setP(new Cavalier(i,1,1));
+			this.Cases[i][2].setP(new Fou(i,2,1));
+			this.Cases[i][3].setP(new Reine(i,3,1));
+			this.Cases[i][4].setP(new Roi(i,4,1));
+			this.Cases[i][5].setP(new Fou(i,5,1));
+			this.Cases[i][6].setP(new Cavalier(i,6,1));
+			this.Cases[i][7].setP(new Tour(i,7,1));
 			if (i == 6)
 			{
 				for (int j = 0; j < 8; j++)
 				{
-					this.desCases[i][j].setPiece(new Pion(i,j,1));
+					this.Cases[i][j].setP(new Pion(i,j,1));
 				}
 			}
 		}
@@ -128,31 +131,33 @@ public class Echiquier
 		{
 			for (int j = 0; j < 8; j++)
 			{
-				s = s + this.desCases[i][j] + "	|	";
+				s = s + this.Cases[i][j] + "	|	\n";
 			}
 		}
 		return s;
 	}
+	
+	// Aide pour initialiser ces méthodes
 
 	public ArrayList<Piece> pritPour(Piece victime)
 	{
-		if(victime.getCouleur() == 0) {
+		if(victime.getCouleur() == 1) {
 
 			for(int i = 0; i < 8; i++){
 				for(int j = 0; j < 8; j++){
-					if(!(this.etatCase(this.getCase(i, j))))
-						if(this.getCase(i, j).getPiece().getCouleur() == 1)
-							this.listeEnnemie.add(this.getCase(i, j).getPiece());
+					if(!(this.estVide(this.getCase(i, j))))
+						if(this.getCase(i, j).getP().getCouleur() == 0)
+							this.listeEnnemie.add(this.getCase(i, j).getP());
 				}
 			}
 		}
-		else if(victime.getCouleur() == 1)
+		else if(victime.getCouleur() == 0)
 		{
 			for(int i = 0; i < 8; i++){
 				for(int j = 0; j < 8; j++){
-					if(!(this.etatCase(this.getCase(i, j))))
-						if(this.getCase(i, j).getPiece().getCouleur() == 0)
-							this.listeEnnemie.add(this.getCase(i, j).getPiece());
+					if(!(this.estVide(this.getCase(i, j))))
+						if(this.getCase(i, j).getP().getCouleur() == 1)
+							this.listeEnnemie.add(this.getCase(i, j).getP());
 
 				}
 			}
@@ -165,51 +170,13 @@ public class Echiquier
 	{
 		this.pritPour(cible);
 		for(int i = 0; i<this.listeEnnemie.size(); i++)
-			if(this.listeEnnemie.get(i).verifDeplacement(this, this.getCase(cible.getPosX(),cible.getPosY())))
+			if(this.listeEnnemie.get(i).verifDeplacement(this, this.getCase(cible.getLigne(),cible.getColonne())))
 				{
 				System.out.println(this.listeEnnemie.get(i));
 				return true;}
 		return false;
 	}
 
-	public void effacerEchiquier()
-    {
-		try
-		{
-        	if(System.getProperty("os.name").contains("Windows"))
-			{
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-			}
-			else
-			{
-            	System.out.print("\033[H\033[2J");
-        		System.out.flush();
-			}
-    	}
-		catch (IOException | InterruptedException ex) {}
-	}
-
-// V.1
-	//public String afficher(){
-	// 	int nb =1;
-	// 	String s = "   A   B   C   D   E   F   G   H\n";
-	// 	for (int i = 0; i < 8; i++)
-	// 	{
-	// 		s+=nb+" |";
-	// 			for (int j = 0; j < 8; j++)
-	// 			{
-	// 					if(this.etatCase(this.getCase(i,j)))
-	// 						s += ".   ";
-	// 					else
-	// 						s += this.getCase(i,j).getPiece().getForme()+"   ";
-	// 			}
-	// 		s += "\n";
-	// 		nb++;
-	// 	}
-	// 	return s;
-	// }
-
-// AFFICHAGE DE L'ÉCHIQUIER
 	public String afficher()
     {
 		String s = "	    A	    B	    C	    D	    E	    F	    G	    H\n";
@@ -245,10 +212,10 @@ public class Echiquier
 				for (int j = 0; j < 8; j++)
 				{
 						element += "*   ";
-						if(this.etatCase(this.getCase(i,j)))
+						if(this.estVide(this.getCase(i,j)))
 							element += "    ";
 						else
-							element += this.getCase(i,j).getPiece().getForme()+"   ";
+							element += this.getCase(i,j).getP().getPropriete()+"   ";
 				}
 
 
@@ -268,21 +235,3 @@ public class Echiquier
 
 }
 
-
-
-
-
-
-
-
-
-
-
-/*TEST initialiserPiecesNoir et initialiserPiecesBlanche
-Echiquier e = new Echiquier();
-Piece p = new Fou();
-Piece pi = new Fou();
-e.initialiserPiecesNoir(p);
-e.initialiserPiecesBlanche(pi);
-System.out.println(e.getCase(6,6));
-*/
