@@ -1,12 +1,44 @@
 import java.util.ArrayList;
 
+public class Joueur {
 
-public class Joueur
-{
+	//Déclaration de variables
+	
 	private String prenom;
 	private int couleur;
 	private ArrayList<Piece> tabPiece;
-
+	
+	//Getter et Setter
+	
+	public String getPrenom() {
+		return prenom;
+	}
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+	public int getCouleur() {
+		return couleur;
+	}
+	public void setCouleur(int couleur) {
+		this.couleur = couleur;
+	}
+	public ArrayList<Piece> getTabPiece() {
+		return tabPiece;
+	}
+	public void setTabPiece(ArrayList<Piece> tabPiece) {
+		this.tabPiece = tabPiece;
+	}
+	
+	public Case getChoixCase(Echiquier e , int ligne, char colonne) {
+		return e.getCase( this.convertionL(ligne),this.convertionC(colonne));
+	}
+	
+	public Piece getChoixPiece(Echiquier e , int ligne, char colonne) {
+		return e.getCase(this.convertionL(ligne),this.convertionC(colonne)).getP();
+	}
+	
+	// Constructeurs 
+	
 	public Joueur(String unprenom, int unecouleur)
 	{
 		this.prenom=unprenom;
@@ -18,6 +50,8 @@ public class Joueur
 		this.prenom=new String(j.prenom);
 		this.couleur=j.couleur;
 	}
+	
+	// Méthodes
 	
 	public int convertionC(char lettre) {
 		if (lettre == 'A' )
@@ -57,56 +91,19 @@ public class Joueur
 		return 0;
 	}
 	
-	public Case getChoixCase(Echiquier e , int ligne, char colonne) {
-		return e.getCase( this.convertionL(ligne),this.convertionC(colonne));
-	}
-	
-	public Piece getChoixPiece(Echiquier e , int ligne, char colonne) {
-		return e.getCase(this.convertionL(ligne),this.convertionC(colonne)).getPiece();
-	}
-
-	//Les accesseurs
-	public String getPrenom()
-	{
-		return prenom;
-	}
-
-	public void setPrenom(String prenom)
-	{
-		this.prenom = prenom;
-	}
-
-	public int getCouleur()
-	{
-		return couleur;
-	}
-
-	public void setCouleur(int couleur)
-	{
-		this.couleur = couleur;
-	}
-
-	public ArrayList<Piece> getTabPiece()
-	{
-		return tabPiece;
-	}
-
-	public void setTabPiece(ArrayList<Piece> tabPiece)
-	{
-		this.tabPiece = tabPiece;
-	}
-
 	public String coul() {
 		String s ="";
 		if(this.couleur == 1)
-			s+="Blanche";
+			s+="noires";
 		else
-			s+="Noire";
+			s+="blanches";
 		return s ;
 	}
 
 	public String toString() {
-		return "Joueur " + this.getPrenom() + " posséde les pièces " + this.coul();
+		return this.getPrenom() + " possède les pièces " + this.coul();
 	}
+	
+	
 
 }
