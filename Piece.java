@@ -1,4 +1,3 @@
-
 public class Piece {
 	
 //	Declaration des instances
@@ -38,6 +37,11 @@ public class Piece {
 		this.colonne = colonne;
 	}
 	
+	public void setLetC(int ligne, int colonne) {
+	    this.setLigne(ligne);
+	    this.setColonne(colonne);
+	  }
+	
 // Constructeur vide 
 	
 	public Piece(){
@@ -70,23 +74,41 @@ public class Piece {
 		 
 	}
 	
+	public boolean verifDeplacement(Echiquier e, Case arrive)
+	  {
+	    return true;
+	  }
+	
+	public boolean memeCouleur(Case d, Case a) {
+	    if(!(a.CaseVide()) )
+	      if(a.getP().getCouleur()==d.getP().getCouleur())
+	        return true;
+	    return false;
+	  }
+
+
+	public String getPropriete() {
+		// TODO Auto-generated method stub
+		return getPropriete();
+	}
+	
 // Fonction pour déplacer les pièces, elle est abstraite et est redéfinie dans les différentes pièces en fonctions de leurs rôles
 // À l'aide de recherches nous avons pu finaliser cette méthode	
 	
-	/**public boolean deplacerPiece(Echiquier e,Case a){
+	public boolean deplacerPiece(Echiquier e,Case a){
 	    Case depart = e.getCase(this.ligne, this.colonne);
 	    System.out.println(depart.getLigne() + " et : " + depart.getColonne());
-	    System.out.println(arrive.getLigne() + " et : " + arrive.getColonne());
-	    System.out.println(depart.getPiece().coupPossible(e,arrive));
-	    if(depart.getPiece().coupPossible(e,arrive)) {
+	    System.out.println(a.getLigne() + " et : " + a.getColonne());
+	    System.out.println(depart.getP().verifDeplacement(e,a));
+	    if(depart.getP().verifDeplacement(e,a)) {
 	          System.out.println("entre du if 1");
-	          e.setCase(arrive, depart.getPiece());
-	          System.out.println(e.getCase(arrive.getLigne(),arrive.getColonne()));
-	          depart.setPiece(null);
+	          e.setCase(a, depart.getP());
+	          System.out.println(e.getCase(a.getLigne(),a.getColonne()));
+	          depart.setP(null);
 	          System.out.println(e.getCase(depart.getLigne(),depart.getColonne()));
 	          return true;
 	      }
 	    return false;
-	  }*/
+	  }
 	
 }
