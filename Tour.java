@@ -38,9 +38,10 @@ public class Tour extends Piece {
 	public String couleurtour() {
 		String s;
 		if(this.getCouleur() == 0)
-	        s = "\u265C";
-	      else
 	        s = "\u2656";
+	      else
+	        s = "\u265C";
+	
 		return s;
 		
 	}
